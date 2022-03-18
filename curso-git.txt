@@ -1,7 +1,7 @@
 CLASE 9
 vim -> esc + i:
 puedo escribir en el editor de txt de la consola
-esc + shift + zz <- guardar
+esc + shift + zz <- guardar -> esc + :wq! 
 suelo entrar acá cuando hago un commit sin mensaje
 
 git show
@@ -10,8 +10,29 @@ para visualizar el ultimo cambio desde la version anterior a la actual
 git log
 para ver todos los commit
 
-git diff (+ identificador del commit -espacio- identificador commit que comparo)
+git diff (+ indicador del commit -espacio- identificador commit que comparo)
 para visualizar los cambios entre las versiones comparadas
+___________________________________________________
+CLASE 10
+git rm cached (elimino lo que agregué al staging - cuando hago add)
+
+sin rastrear: antes de trackear los archivos (con git add)
+stagin: memoria ram (estado temporal)
+repositorio real: al que llego cuando hago un commit
+
+git checkout -> para traerme los archivos del repositorio a mi trabajo local
+___________________________________________________
+CLASE 11 RAMAS (la principal es main)
+hotfix (arreglo en caliente)-> cuando encuentro un bug en las versiones que pruebo, y hago un git merge para unir con la rama principal
+development -> cuando hago experimentos en el codigo
+main (master)-> la rama principal del trabajo
+____________________________________________________
+CLASE 12
+git reset (+ indicador de commit)
+se elimina del staging los ultimos cambios y me regresa al commit que indicamos (se pierde todo lo anterior)
+
+git reset soft (+ indicador de commit)
+lo mismo pero no pierdo del staging el ultimo git add que había hecho
 
 
 
