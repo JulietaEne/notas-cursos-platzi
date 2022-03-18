@@ -26,10 +26,10 @@ ___________________________________________________
 </p>
 ___________________________________________________
 <h1>CLASE 11 RAMAS (la principal es main)</h1>
-<strong> (arreglo en caliente)-> cuando encuentro un bug en las versiones que pruebo, y hago un git merge para unir con la rama principal
+<p><strong> (arreglo en caliente)-> cuando encuentro un bug en las versiones que pruebo, y hago un git merge para unir con la rama principal
 development -> cuando hago experimentos en el codigo
-main (master)-> la rama principal del trabajo
-</strong>
+main (master)-> la rama principal del trabajo</strong></p>
+
 ____________________________________________________
 <h1>CLASE 12</h1>
 <h3> reset (+ indicador de commit)</h3>
@@ -43,14 +43,14 @@ lo mismo pero no pierdo del staging el ultimo git add que había hecho
 
 <h3>git log --stat</h3>
 <p>puedo ver los cambios especificos en cada commit
-para ver cómo era el archivo en un commit anterior (en mi entorno de trabajo)
+para ver cómo era el archivo en un commit anterior (en mi directorio de trabajo)
 <b>git checkout (+ identificador del commit que quiero traer + qué archivo quiero de regreso)</b><br>
 => mi repositorio actual se va a actualizar para quedar como en el commit solicitado. <br>
 (!!!)si yo hago un commit, voy a perder todo lo progresado
 (!!!)esto me lo avisa cuando hago un git status<br>
 => para volver al archivo en el último cambio, pido el de master: 
 <b>git checkout master (+ nombre de archivo)</b></p>
-
+___________________________________________________
 <h1>CLASE 13</h1>
 <h3>git reset HEAD:</h3><p> para sacar archivos del área de staging.
 No los borra, solo que los últimos cambios de estos archivos
@@ -95,4 +95,24 @@ Conclusión: Lo mejor que puedes hacer para salvar tu puesto y evitar un incendi
 
 <h4>Aporte creado por: Juan David Castro</h4>
 </body>
-
+___________________________________________________
+<h1>CLASE 14</h1>
+<body>
+    <h2>Segundo módulo</h2>
+    <p>
+        en el repositorio que estoy usando hago un <b>git init</b>
+        => aparece el <b>staging</b> (repositorio local al cual accedo cuando hago <b>git add</b>)
+        => cuando hago <b>git commit</b> envío lo que queda en staging al <b>repositorio local</b><br>
+        entonces cuando hago git init voy a tener (en mi entorno de desarrollo personal):<br>
+         1) directorio de trabajo <br>
+         2) staging (llego con git add)<br>
+         3) repositorio local (llego con git commit)<br>
+         <br>
+         por ultimo, necesito un repositorio remoto, que es donde puedo tambien trabajar con otras personas
+        => para eso tengo que hacer <b>git clone <i>+url</i></b> (me traigo los datos de mi repositorio remoto. allí se trae una copia del master al directorio y crea la base de datos de todos los cambios historicos en el repo local)
+        <br>
+        4) repositorio remoto (llego con git push)<br>
+        (!!) si quiero actualizar los archivos en mi directorio de trabajo local, tengo que traer con <b> git fetch</b> a mi repositorio local y con <b>git merge</b> a mi directorio de trabajo <br>
+        (!!) el comando <b>git pull</b> acciona el fetch+merge
+    </p>
+</body>
