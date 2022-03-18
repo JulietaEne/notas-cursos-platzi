@@ -1,0 +1,17 @@
+CLASE 9
+vim -> esc + i:
+puedo escribir en el editor de txt de la consola
+esc + shift + zz <- guardar
+suelo entrar acá cuando hago un commit sin mensaje
+
+git show
+para visualizar el ultimo cambio desde la version anterior a la actual
+
+git log
+para ver todos los commit
+
+git diff (+ identificador del commit -espacio- identificador commit que comparo)
+para visualizar los cambios entre las versiones comparadas
+
+
+
