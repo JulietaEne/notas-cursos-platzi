@@ -1,0 +1,98 @@
+<head>CURSO GIT Y GIT HUB</head>
+<body>
+<h1>CLASE 9</h1>
+<h3>vim -> esc + i:</h3>
+<p>puedo escribir en el editor de txt de la consola
+esc + shift + zz <- guardar -> esc + :wq! 
+suelo entrar acá cuando hago un commit sin mensaje</p>
+
+<h3>git show</h3>
+<p>para visualizar el ultimo cambio desde la version anterior a la actual</p>
+<h3>git log</h3>
+<p>para ver todos los commit</p>
+
+<h3>git diff</h3> <p>(+ indicador del commit -espacio- identificador commit que comparo)
+para visualizar los cambios entre las versiones comparadas</p>
+___________________________________________________
+<h1>CLASE 10</h1>
+<h3>git rm --cached</h3> <p>(elimino lo que agregué al staging - cuando hago add)</p>
+<h3>git rm --force</h3> <p>(elimino los archivos de git y del disco duro)</p>
+
+<strong> <b>rastrear:</b> antes de trackear los archivos (con git add)
+<b>stagin:</b> memoria ram (estado temporal)
+<b>repositorio real:</b> al que llego cuando hago un commit
+</strong>
+<h3>git checkout</h3><p> -> para traerme los archivos del repositorio a mi trabajo local
+</p>
+___________________________________________________
+<h1>CLASE 11 RAMAS (la principal es main)</h1>
+<strong> (arreglo en caliente)-> cuando encuentro un bug en las versiones que pruebo, y hago un git merge para unir con la rama principal
+development -> cuando hago experimentos en el codigo
+main (master)-> la rama principal del trabajo
+</strong>
+____________________________________________________
+<h1>CLASE 12</h1>
+<h3> reset (+ indicador de commit)</h3>
+<p> <- es como volver en el tiempo
+se elimina del staging los ultimos cambios y me regresa al commit que indicamos (se pierde todo lo anterior)
+</p>
+
+<h3>git reset soft</h3><p> (+ indicador de commit)
+lo mismo pero no pierdo del staging el ultimo git add que había hecho
+</p>
+
+<h3>git log --stat</h3>
+<p>puedo ver los cambios especificos en cada commit
+para ver cómo era el archivo en un commit anterior (en mi entorno de trabajo)
+<b>git checkout (+ identificador del commit que quiero traer + qué archivo quiero de regreso)</b><br>
+=> mi repositorio actual se va a actualizar para quedar como en el commit solicitado. <br>
+(!!!)si yo hago un commit, voy a perder todo lo progresado
+(!!!)esto me lo avisa cuando hago un git status<br>
+=> para volver al archivo en el último cambio, pido el de master: 
+<b>git checkout master (+ nombre de archivo)</b></p>
+
+<h1>CLASE 13</h1>
+<h3>git reset HEAD:</h3><p> para sacar archivos del área de staging.
+No los borra, solo que los últimos cambios de estos archivos
+no se envían al último commit, a menos que los REincluya con git add, por supuesto.
+</p></body>
+
+<h1>Git reset y git rm son comandos con utilidades muy diferentes, pero se pueden confundir muy fácilmente.</h1>
+<body>
+<h3>git rm</h3>
+Este comando nos ayuda a eliminar archivos de Git sin eliminar su historial del sistema de versiones. Esto quiere decir que si necesitamos recuperar el archivo solo debemos “viajar en el tiempo” y recuperar el último commit antes de borrar el archivo en cuestión.
+
+Recuerda que git rm no puede usarse así nomás. Debemos usar uno de los flags para indicarle a Git cómo eliminar los archivos que ya no necesitamos en la última versión del proyecto:
+
+<h3>git rm --cached:</h3> Elimina los archivos de nuestro repositorio local y del área de staging, pero los mantiene en nuestro disco duro. Básicamente le dice a Git que deje de trackear el historial de cambios de estos archivos, por lo que pasaran a un estado untracked.
+<h3>git rm --force:</h3> Elimina los archivos de Git y del disco duro. Git siempre guarda todo, por lo que podemos acceder al registro de la existencia de los archivos, de modo que podremos recuperarlos si es necesario (pero debemos usar comandos más avanzados).
+<h3>git reset</h3>
+Este comando nos ayuda a volver en el tiempo. Pero no como git checkout que nos deja ir, mirar, pasear y volver. Con git reset volvemos al pasado sin la posibilidad de volver al futuro. Borramos la historia y la debemos sobreescribir. No hay vuelta atrás.
+
+Este comando es muy peligroso y debemos emplearlo solo en caso de emergencia. Recuerda que debemos usar alguna de estas dos opciones:
+
+Hay dos formas de utilizar git reset: con el argumento --hard, borrando toda la información que tengamos en el área de staging (y perdiendo todo para siempre). O, un poco más seguro, con el argumento --soft, que mantiene allí los archivos del área de staging para que podamos aplicar nuestros últimos cambios pero desde un commit anterior.
+
+<h3>git reset --soft:</h3> Borramos todo el historial y los registros de Git pero guardamos los cambios que tengamos en Staging, así podemos aplicar las últimas actualizaciones a un nuevo commit.
+<h3>git reset --hard:</h3> Borra todo. Todo todito, absolutamente todo. Toda la información de los commits y del área de staging se borra del historial.
+¡Pero todavía falta algo!
+
+<h3>git reset HEAD:</h3> Este es el comando para sacar archivos del área de staging. No para borrarlos ni nada de eso, solo para que los últimos cambios de estos archivos no se envíen al último commit, a menos que cambiemos de opinión y los incluyamos de nuevo en staging con git add, por supuesto.
+<h3>¿Por qué esto es importante?</h3>
+Imagina el siguiente caso:
+
+Hacemos cambios en los archivos de un proyecto para una nueva actualización. Todos los archivos con cambios se mueven al área de staging con el comando git add. Pero te das cuenta de que uno de esos archivos no está listo todavía. Actualizaste el archivo, pero ese cambio no debe ir en el próximo commit por ahora.
+
+¿Qué podemos hacer?
+
+Bueno, todos los cambios están en el área de Staging, incluido el archivo con los cambios que no están listos. Esto significa que debemos sacar ese archivo de Staging para poder hacer commit de todos los demás.
+
+¡Al usar git rm lo que haremos será eliminar este archivo completamente de git! Todavía tendremos el historial de cambios de este archivo, con la eliminación del archivo como su última actualización. Recuerda que en este caso no buscábamos eliminar un archivo, solo dejarlo como estaba y actualizarlo después, no en este commit.
+
+En cambio, si usamos git reset HEAD, lo único que haremos será mover estos cambios de Staging a Unstaged. Seguiremos teniendo los últimos cambios del archivo, el repositorio mantendrá el archivo (no con sus últimos cambios, pero sí con los últimos en los que hicimos commit) y no habremos perdido nada.
+
+Conclusión: Lo mejor que puedes hacer para salvar tu puesto y evitar un incendio en tu trabajo es conocer muy bien la diferencia y los riesgos de todos los comandos de Git.
+
+<h4>Aporte creado por: Juan David Castro</h4>
+</body>
+
