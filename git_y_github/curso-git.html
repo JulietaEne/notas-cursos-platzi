@@ -1,4 +1,5 @@
 <head>CURSO GIT Y GIT HUB</head>
+<h2>Segundo módulo</h2>
 <body>
 <h1>CLASE 9</h1>
 <h3>vim -> esc + i:</h3>
@@ -26,7 +27,9 @@ ___________________________________________________
 </p>
 ___________________________________________________
 <h1>CLASE 11 RAMAS (la principal es main)</h1>
-<p><strong> (arreglo en caliente)-> cuando encuentro un bug en las versiones que pruebo, y hago un git merge para unir con la rama principal
+<p>
+<strong> 
+hotfix (arreglo en caliente)-> cuando encuentro un bug en las versiones que pruebo, y hago un git merge para unir con la rama principal
 development -> cuando hago experimentos en el codigo
 main (master)-> la rama principal del trabajo</strong></p>
 
@@ -57,8 +60,9 @@ No los borra, solo que los últimos cambios de estos archivos
 no se envían al último commit, a menos que los REincluya con git add, por supuesto.
 </p></body>
 
-<h1>Git reset y git rm son comandos con utilidades muy diferentes, pero se pueden confundir muy fácilmente.</h1>
-<body>
+<h4>Aporte creado por: Juan David Castro</h4><body>
+ <h1>Git reset y git rm son comandos con utilidades muy diferentes, pero se pueden confundir muy fácilmente.</h1>
+
 <h3>git rm</h3>
 Este comando nos ayuda a eliminar archivos de Git sin eliminar su historial del sistema de versiones. Esto quiere decir que si necesitamos recuperar el archivo solo debemos “viajar en el tiempo” y recuperar el último commit antes de borrar el archivo en cuestión.
 
@@ -93,12 +97,12 @@ En cambio, si usamos git reset HEAD, lo único que haremos será mover estos cam
 
 Conclusión: Lo mejor que puedes hacer para salvar tu puesto y evitar un incendio en tu trabajo es conocer muy bien la diferencia y los riesgos de todos los comandos de Git.
 
-<h4>Aporte creado por: Juan David Castro</h4>
+
 </body>
 ___________________________________________________
-<h1>CLASE 14</h1>
+<h2>Tercer módulo</h2>
 <body>
-    <h2>Segundo módulo</h2>
+    <h1>CLASE 14</h1>
     <p>
         en el repositorio que estoy usando hago un <b>git init</b>
         => aparece el <b>staging</b> (repositorio local al cual accedo cuando hago <b>git add</b>)
@@ -115,4 +119,56 @@ ___________________________________________________
         (!!) si quiero actualizar los archivos en mi directorio de trabajo local, tengo que traer con <b> git fetch</b> a mi repositorio local y con <b>git merge</b> a mi directorio de trabajo <br>
         (!!) el comando <b>git pull</b> acciona el fetch+merge
     </p>
+
+    <h1>CLASE 15</h1>
+    <p>
+        si tengo un archivo que ya estuve commiteando puedo usar <b>git commit -am "descripcion"</b> (hace automateicamente el git add, pero si es un archivo nuevo, no lo va a hacer)
+        <h3>Crear nueva rama</h3>
+        <p>
+            desde la rama en donde estoy (en principio el master) puedo crear una nueva rama. 
+            Puedo hacer un <b>git show</b> para ver todos los últimos cambios y también para saber a dónde está apuntando el HEAD (apreto q para salir del visualizador)<br>
+
+            <h4>git branch (nombre que quiero dar a la rama)</h4>
+            <p>
+                voy a estar creando una nueva rama de trabajo (por ejemplo, hotfix).
+                Si hago un <b>git show</b> puedo ver que el HEAD apunta al master y a la nueva rama.
+                <br>=><b>git checkout ramaNueva</b> cambio al branch nuevo.
+                A partir de acá, todos los cambios que realice, se van a guardar en la nueva rama, sin alterar las otras RAMAS
+            </p>
+
+        </p>
+    </p>
+
+    <h1>CLASE 16</h1>
+    <p>
+        MERGE: cuando se fusionan ramas. (!!!)<b>NO OLVIDAR hacer un git commit -am</b> porque si hago un checkout a otra rama, los cambios se pierden(!!!) 
+        <br>
+        recordar que  el merge se hace desde la rama a la que quiero hacer la fusión de ramas => <b>git checkout master (por ejemplo)</b>
+        (!!)si llega a haber un conflicto(dos programadores cambiaron las mismas lineas de codigo y son diferentes), va a haber que solucionarlo a mano, me va a avisar
+        
+        <h3>git merge nuevaRama</h3>
+        <p>se va a abrir VIN porque un merge es un commit a la rama donde estoy haciendo la fusión, para agregar el mensaje</p>
+        
+        <h4>git branch</h4>
+        <p>me va a mostrar qué ramas tengo, y me va a resaltar la rama en la que estoy parada</p>
+    </p>
+    
+    <h1>CLASE 17</h1>
+    <p>
+        <h2>¿que pasa cuando hay un conflicto al momento de realizar un merge?</h2>
+        <p>
+            la consola me va a avisar que hay un conflicto y que hasta que no se solucione, no se va a hacer el merge
+            <br>la sintaxis para un conflicto es:<br>
+            <<<<<<<<<<< HEAD <- indica el conflicto encontrado en la rama actual <br> 
+                linea con el conflicto<br>
+            ==========<br>
+                linea con el conflicto en la rama a fusionar <br>
+            >>>>>>>>>> nuevaRama <- indica la rama en donde se encuentra el conflicto <br>
+            <br>
+            Para solucionarlo, borro esas lineas y elijo con qué opción me quedo<br>
+            ya puedo hacer el nuevo commit 
+        </p>
+    </p>
 </body>
+___________________________________________________
+<h2>Cuarto módulo</h2>
