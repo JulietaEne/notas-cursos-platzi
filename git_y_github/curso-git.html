@@ -172,3 +172,146 @@ ___________________________________________________
 </body>
 ___________________________________________________
 <h2>Cuarto módulo</h2>
+<body>
+    <h3>GitHub</h3>
+    <strong>es una interfaz visual<br>
+       es un servidor de git colaborativo<br>
+       es una de las herramientas colaborativas más importante<br>
+    </strong>
+    <h2>crear repositorio</h2>
+    <p>es una buena práctica tener un readme, es un archivo en la raiz del repositorio para que la gente conozca de qué se trata<br>
+    <b>RAW</b> me muestra el codigo plano<br>
+    <b>BLAME</b> puedo ver los autores de los cambios<br>
+    <b>HISTORY</b> es como hacer git log en la consola, me muestra el historial
+    <br>
+
+    <h2>git remote add origin (+ link HTTPS del repositorio en github)</h2>
+    vamos a agregar un origen remoto para los archivos del directorio local.
+    
+    <h2>git remote -v</h2>
+    el <b>-v</b> parametro para que sea verbal<br>
+    me va a indicar el origin para hacer el fetch (traerme cosas) y el origin para hacer el push (subir cosas)
+
+    <h2>git push origin main</h2>
+    le estamos diciendo que envíe al origen lo que tengo en master (ahora main). Allí me va a pedir usuario y contraseña del github.
+    <br>
+    (!!) va a tener un error, porque el remoto tiene datos que no tengo en el local (el archivo readme) => tengo qeu hacer un <b>git pull origin main</b>.
+    ALlí va a hacer un error fatal porque hay cosas distintas. Para forzar el merge, tengo que hacer: <br>
+    <b> git pull origin main --allow-unrelated-histories</b>. Es un caso aislado, que tiene que ver con la estructura con la que se creean los archivos en github
+
+        <br> =>ahora sí puedo hacer un push.</p>
+
+    <h3>Llaves publicas y privadas</h3>
+    <p>
+        Cuando tengo un mensaje que no quiero que sea intervenido al enviarlo por internet, tengo que <b>cifrarlo</b>
+        Las llaves se crean con un proceso algorítmico que hace que matemáticamente estén vinculadas entre sí
+        => mando la llave pública y me quedo con la llave privada. La llave pública puede cifrar el mensaje que se quiere enviar, luego la llave privada puede decifrar ese mensaje 
+    </p>
+
+    <h3>Llaves SSH</h3>
+    <p>
+        es una capa de seguridad mucho más fuerte que el sistema de usuario y contraseña, porque pueden ser hackeadas y permiten entrar al repositorio<br>
+        Se crea una llave pública y una privada en el entorno de trabajo, y luego se envía la llave pública a github, por la cual se comenzarán a conectar ( en lugar de https, ahora va a ser ssh)
+        => github enviará su llave pública (cifrada) => hay una conexión cifrada de doble camino
+    
+        <h4>git config --global user.email "un email"</h4>
+        sirve para hacer un cambio en el entorno (email)
+    
+        <h3>crear la llave ssh</h3>
+        <p>tengo que estar en el home (~) y uso el comando: <b>ssh-keygen -t rsa -b 4096 -C "miemail" </b>
+        allí me va a indicar la RUTA donde se guarda la llave. Luego va a pedir la passphrase (contraseña para la llave). Al finalizar me va 
+        a mostrar "la huella" y el "randomart image" para confirmar que se realizó la llave. <br>
+        Al terminar, me dirijo a la carpeta para abrir la llave pública y poder pegarla en github<br>
+
+        <h2>Revisar que el servidor de llaves ssh esté prendido</h2>
+        <p> sirve para revisar que las llaves estén corriendo y poder hacer la conexión doble a un servidor remoto.
+            <b>eval $(ssh-agent -s)</b> y la respuesta sería: Agen pid n°
+        </p>
+
+        <h2>Tenemos que agregar en mi entorno la llave privada creada</h2>
+        <p>
+            <b>ssh-add (+RUTA donde se guarda la llave+nombre de la llave-la de .pub NO, porque estoy agregando la llave privada)</b>
+            Al final me va a indicar que la identidad fue añadida.
+            Ahora puedo hacer gut pull/git push sin necesidad de usar contraseñas
+        </p>
+     </p>
+        <h3>CLASE 22</h3>
+        <p>
+            Ingresamos la llave pública a github. => copiamos la llave pública y en settings voy a <b>SSH and GPG keys</b> para pegarla. Me pedirá la contraseña para finalizar
+            <br>
+            <br>
+            en mi repositorio del trabajo, abro la consola para cambiar la url de origin remote, así la paso a ssh
+            <h2>git remote set-url origin (pego el url ssh)</h2>
+            para verificar los cambios puedo hacer <b>git remote -v</b><br>
+
+            <h2>git pull origin main</h2>
+            (orgin se refiere al repositorio remoto) TEngo que traerme la ultima version del servidor. 
+            Tenemos que hacer éste comando la primera vez para traer la información que tenemos en el remoto
+            => ahora puedo hacer el push (git add, git commit, git push)
+        </p>
+    </p>
+    <h3>CLASE 23: versiones</h3>
+    <p>
+        <h2>git log --all</h2>
+        me muestra todos los commit que haya habido (lo recorro)
+
+        <h2>git log --all --graph</h2>
+        hace visual los branch
+
+        <h2> git log --all --graph --decorate --online</h2>
+        me muestra toda la historia del proyecto, con los branch visual, pero un poco más comprimido, más fácil de visualizar
+        
+        <h2><b>ALIAS</b> alias nombreAlias = "git log --....."</h2>
+        sirve para renombrar un comando(por ejemplo). Cada profesional crea sus propios alias, quedan guardados en el entorno local
+
+        <h3>TAG</h3>
+        <h2> git tag -a nombreTag -m "un mensaje de commit" n°del identificador del commit</h2>
+            tengo que tener el hash (identificador) del commit que quiero renombrar. 
+            Los tag sirven para renombrar los identificadores del tag. 
+            Usualmente por convención se usa v0.1 y demás. 
+            Es como hacer un commit,por eso hay que poner un mensaje
+
+        <h2>git show-ref --tags</h2>
+        puedo visualizar los commits que están asignados a un tag
+
+        <h2>git tag</h2>
+        me muestra todos los tag que tengo<br>
+
+        <h2>git push origin --tags</h2>
+        si hago un <b>git status</b> me va a mostrar como que no hay nada para commitear, pero una vez que tengo tag, 
+        tendría que mandarlo al repositorio en github, ya que los tag están pensados para el trabajo colaborativo. 
+        <br>en branch me van a aparecer los tags.
+
+        <h4>que pasa si quiero eliminar un tag?</h4>
+        <h2>git tag -d nombreDelTagAEliminar</h2>
+        pero no se borra en github, queda en el marcador.
+
+        <h2>git push origin :refs/tags/nombreDelTagAEliminar</h2>
+    </p>
+
+    <h3>CLASE 24: manejo de ramas</h3>
+    <p>
+        <h4>como agregar la historia de las ramas a github</h4>
+        <p>
+            tengo que hacer <b>checkout</b> a la rama que quiero subir, luego: <b>git push origin NombreRama</b>
+            <br>
+            puedo crear más ramas de trabajo. Siempre desde la versión más reciente y principal. puedo hacer <b>git branch nombreDeBranch</b>
+            => <b>git push origin nombreRama</b> con eso envío los branch nuevos al repositorio remoto
+
+            <h2>git show-brach</h2>
+            muestra las ramas que existen y su historia
+
+            <h2>git show-brach --all</h2>
+            idem anterior pero con más detalle
+
+            <h2>gitk</h2>
+            me abre un software que muestra todos los branch de forma super visual (para ver estructura y historia completa)
+
+
+
+        </p>
+    </p>
+
+    <h3>CLASE 25: colaboradores en repositorio remoto</h3>
+    </p>
+</body>
