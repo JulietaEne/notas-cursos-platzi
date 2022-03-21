@@ -313,5 +313,59 @@ ___________________________________________________
     </p>
 
     <h3>CLASE 25: colaboradores en repositorio remoto</h3>
+    <p>
+        <h4>Traerme un proyecto desde otro lado</h4>
+            <p><h2>git clone (+url del repositorio)</h2>
+                con la terminal en el directorio donde quiero que queden los archivos<br>cuando el repositorio es PUBLICO, no pide usuario y contraseña
+            </p>
+       <h4>Agregar colaboradores al proyecto de github</h4>
+            <p>
+                desde el repositorio del trabajo, tengo que ir a <b>collaborators</b> y agregar el email o el username de los colaboradores (tienen que ser públicos). Luego, el colaborador tiene que aceptar la invitación
+                Ahora los colaboradores pueden pushear desde su repositorio local.
+            </p>
+    </p>
+    </p>
+</body>
+___________________________________________________
+<h2>Quinto módulo</h2>
+<body>
+    <h3>CLASE 26: flujo de trabajo con pull requests </h3>
+    <p>
+        <h4>master</h4> es la versión principal, la que se envía al servidor por lo qeu es la versión final
+        <h4>servidor de desarrollo o staging</h4> (está justo antes del Master, y lo administra el lider del equipo ) es un entorno lo más similar posible al entorno de producción, es para hacer pruebas sin que afecte al usuario (server de pruebas)
+        <h4>feature</h4> es la rama de desarrollo (de entorno local)
+        <h4>Pull requests</h4> es un estado intermedio antes de enviar el merge (desde feature) a staging. Una vez aprobado, se hace el merge con el master
+        <br>DevOps es el administrador del equipo de trabajo
+    </p>
+
+    <h3>CLASE 27: merge a master</h3>
+    <p>
+        (!!!)siempre tenemos que verificar que todas las ultimas versiones de las ramas son correctas antes de hacer merge en master (main)
+        => hago <b>git checkout</b>a cada rama<br>
+        <H4>git pull origin nombreRama</H4>
+        <p>con este comando me estoy trayendo del repositorio remoto una rama.
+            <br>(!!) recordar que en el flujo de trabajo profesional, se trabaja en diferentes ramas, no en master</p>
+            
+        <h4>git merge nombreRama</h4>
+            fusionar ramas (siempre desde el checkout en master-main)
+            <br> luego verifico qeu en master-main queda lo qeu precisaba 
+   </p>
+
+   <h3>CLASE 28: pull requests</h3>
+    <p>
+        El pull requests no ejecuta el merge de por sí, pero sirve para describir los detalles, avisos, notas, solicitar revisiones, etc. Es para ordenar el flujo del trabajo
+        <br>
+        <strong>Comment<br> Aprove: aprobar<br> requests changes: pedir cambios<br> </strong>
+    </p>
+    <h3>CLASE 29: fork + contribucion [GITHUB]</h3>
+    <p>
+        si no soy colaborador de un proyecto que me gusta, puedo seguirlo aplicando <b>watch</b> para que me notifique las actualizacione <br>
+        <b>estrellita</b> para que lleguen avisos en las conversaciones del proyecto<br>
+        <b>hacer fork</b> clonar el proyecto en el estado en que se encuentre, lo voy a tener en mi repositorio de github (pero no puedo crearle ramas,no puede crear tags)
+        <br>
+        para traermelo a mi disco (y realizar cambios), en mi consola hago <b>git clone (url del proyecto)</b><br>
+        ahora voy a tener todos los archivos que forman parte del proyecto, incluyendo el git. Entonces ya puedo editar el código para contribuir en el proyecto open source.
+        <br>ahora puedo hacer un git commit -am para <h4></h4>
+
     </p>
 </body>
