@@ -365,7 +365,220 @@ ___________________________________________________
         <br>
         para traermelo a mi disco (y realizar cambios), en mi consola hago <b>git clone (url del proyecto)</b><br>
         ahora voy a tener todos los archivos que forman parte del proyecto, incluyendo el git. Entonces ya puedo editar el código para contribuir en el proyecto open source.
-        <br>ahora puedo hacer un git commit -am para <h4></h4>
+        <br>ahora puedo hacer un git commit -am para 
+        
+        <h4>Pull request como contribucion</h4>
+        Como le hice fork, github facilita el proceso de pull request.
+        El creador del  proyecto debe autorizar el merge. Si lo hace, actualiza el proyecto con la contribución <br>
+        A medida que el proyecto original se actualiza, los fork tienen que traerse los cambios para poder continuar trabajando (pull request desde el proyuecto original hacia el proyecto forkeado).
+
+        <h4>switch in de base</h4>
+        con éste botón puedo visualizar los cambios del proyecto original en relación al forkeado.
+        
+        <h4>create pull requests x consola</h4>
+        1) tengo que abrir otra fuente-rama para hacer pull (traer los cambios)
+        =>como actualmente tengo la rama master(el de mi propio proyecto), tengo que crear la rama para las actualizaciones: <b>git remote add (nombre distinto a origin, normalmente se usa upstream) + url del proyecto original</b>
+        AHora tengo una fuente nueva. La podemos ver con <b>git remote -v</b><br>
+        2) ahora tengo que traerme los cambios: <b>git pull upstream master</b>: ahora me estoy trayendo los cambios de la rama a la rama master.
+        Si hacemos un <b>git status</b>  veremos que cambiaron cosas en master, porq las trajimos.
+        <br>3) hago commit y luego pusheo para subirlo a github de nuevo.
+        
+        <h4>importante</h4>
+        el repositorio forkeado va a tener 2 repositorios: <b>online</b>(github, al cual pusheo y del cual hago pull) y <b>local</b>(sobre el cual trabajo, donde me traen los pull y de donde salen los push).
+        <br> en el repositorio local voy a tener a su vez, el repositorio <b>upstream</b> que es un apuntador al repositorio original.
+        Gracias a él, desde el repositorio local puedo hacer pull para traer el ultimo commit del repositorio original para fucionarlo con la versión local. Y luego puedo hacer el git push para subirlo al respositorio forkeado en github.
+    </p>
+
+    <h3>CLASE 30: desafio</h3>
+
+    <h3>CLASE 32:git ignore</h3>
+    <p>
+    (!!!)No todos los archivos que agrego al proyecto pueden ir al repositorio, por un tema de seguridad.
+    Una buena práctica es evitar subir los archivos binarios
+    <h4>gitignoe</h4>
+    En la raiz del proyecto local, creo un archivo <b>.gitignore</b>, que es una lista de los archivos que voy a ignorar.
+    Por ejemplo: <b>*.jpg</b>
+    De esta forma, puedo mantener el código (y el url de las imagenes, por ejemplo), pero no se van a subir los archivos que responden al propietario
+    <br>
+    las imagenes (binarios) se deberían cargar por otros lados (por ejemplo, ftp, imgur)
+    <br>
+    ¿Con qué completar el .gitignore? Podemos inspirarnos en otros proyectos open source, por ejemplo <b>/laravel</b>(framwork de php), 
+    <b>/vuejs</b>(framework de desarrollo de front end), <b>/ghost</b>(wordpress hecho en javascript), <b>/arduino</b>(proyecto de codigo abierto para crear hardware)
+    <br>tarea: desde imgur.com subir gratis imagenes y referenciar desde ahí
+    </p>
+
+    <h3>CLASE 33: readme.md, buena práctica</h3>
+    <p>
+        existe para contarle al mundo de qué se trata el repositorio. Siempre está en la raíz del proyecto. 
+        <br>
+        <b>markdown</b> es un lenguaje intermedio que no es un texto plano, pero tampoco un html.
+        Un editor para el readme online puede ser: <b>editor.md</b>. 
+        y luego lo paso al visual studio code :D
+        <br>
 
     </p>
+
+    <h3>CLASE 34: tu sitio web público</h3>
+    <p>
+        Servicio de hosting gratis. 
+        <br>
+        <h4>pages.github.com</h4>
+        Solo tengo que tener un repositorio hosteado. Para un proyecto, tengo que tener un repo nuevo con el nombre de usuario. 
+        y tiene que ser público. 
+        <br> Una vez que lo tengo, lo clono en la máquina local.
+        Allí tendré que hacer un archivo html (en la página de pages, me indica el paso a paso)
+        <br>el repositorio tiene que estar seteado para ser cargado por github pages. En <b>source</b> tiene que estar <b>master branch</b>
+        <h4>¿Como lo cargo en la raiz?</h4>
+        tengo que poner nombreUsuario.github.io 
+    </p>
+</body>
+___________________________________________________
+<h2>Sexto módulo</h2>
+<body>
+    <h3>rebase (mala práctica para repositorio remoto, solo para repositorio local)</h3>
+    <p>
+        es como un parche para errores (solo para repo local): creo una rama donde corrijo el error,pero en vez de commitearla como una rama aparte, reescribo la historia del repositorio (generalmente en la rama master)haciendo que la rama nueva se fusione sin dejar rastros
+        <br>
+        Estando en la <b>rama del parche</b> uso el comando <b>git rebase master</b> =>al nivel de la rama parche le pido que  pegue la historia a la historia del master.
+        Allí git detallará el proceso. Si vemos el history, voy a notar que la rama del parche dice ser un commit siguiente al master. 
+
+        <br>
+        Ahora puedo hacer un merge con la rama anterior. 
+        <br>
+        hago un checkout a master donde voy a hacer un rebase (<b>siempre se hace un rebase a la rama que voy a desaparecer de la historia, y luego un rebase a la historia principal</b>- sino se entra en un conflicto que solo se arregla con git reset)
+        => <b>git rebase ramaParche</b>: si veo lo que pasa en el history, ahora está todo en la rama master. Existe la ramaParche pero tiene el mismo contenido que la rama master. 
+        Los commits de la ramaParche y los commit de la rama master, son los mismos. A nivel historia, la ramaParche no existe. => si hago <b>git branch ramaParche</b> esa rama ya no existe. 
+        <strong>RECORDAR: hago rebase en donde tengo los cambios que quiero modificar y luego rebase a la rama que va a quedar</strong>
+        <b>problemas:</b> <br>
+        1) no queda historia <br>
+        2) no se sabe quien hizo qué <br>
+        3) en ocasiones si la rama master avanzó mucho, puede crear conflictos que solamente se pueden arreglar de forma manual
+
+    </p>
+
+    <h3>CLASE 36: git stash</h3>
+    <p>
+        Estoy en la rama master y quiero hacer unas modificaciones para las cuales tengo que verificar algo en una rama anterior, pero no quiero hacer un commit a esas modificaciones, pero no las quiero guardar en un lugar (STASH)<br>
+        <h4>git stash</h4>
+        cuando hago git stash los cambios se guardan en un lugar temporal (WIP work in progress-  mientras que mi trabajo queda en el estado anterior).<br>
+        Lo puedo ver con el comando <b>git stash list</b> => puedo ver que tengo un stash 0 y el nombre de su commit. 
+        <br> Ahora puedo cambiar a la rama que necesitaba mirar => si yo quito el stash acá, me sacaría el trabajo qeu hice en esta rama. 
+        <br> Ahora puedo volver a la rama del cambio del stash y retomarlo con <b>git stash pop</b> => vuelven los cambios a mi archivo. 
+        <br>
+        <h4>si quiero guardar los cambios y agregarlos en una rama</h4>
+        <b>git stash branch ramaEnLaQueGuardo-version</b> =>ahora puedo guardar la versión y hacerle commit. En stash no me queda nada. 
+        <br>
+        <h4>git stash drop</h4>
+        Se hace para eliminar lo que tengo en stash. Por ejemplo, hice un cambio en el archivo y lo guardé (entonces lo rompí). Puedo guardar en stash para que regrese al commit anterior, y luego eliminar lo que dejé en stash.
+        <br>
+        =>el stash es una forma util de tener en temporal los cambios, y poder moverte en ramas. Tambien para tener pequeños experimentos para probar, que no merecen ramas. O tambien cuando avanzaste mucho en el trabajo y olvidaste algún dato de otra rama, y no hiciste commit. 
+        Es ideal para proyectos grandes. 
+    </p>
+
+    <h3>Clase 37:git clean</h3>
+    <p>
+        Limpiar el proyecto de archivos no deseados. 
+        <h4>git clean --dry-run</h4>
+        sirve para simular lo que se va a borrar, sin borrarlo. 
+        <h4>git clean -f</h4>
+        elimina los archivos señalados (no elimina carpetas y archivos que puede indexar - no lo que está en git ignore)
+    </p>
+
+    <h3>Clase 38:git cherry-pick (mala practica)</h3>
+    <p>
+        Cuando necesitamos traer un commit viejo de otra rama, a la rama de trabajo.<br>
+        desde la rama a la que quiero traer algún commit hago <b>git cherry-pick hashDelCommit</b>
+    </p>
+</body>
+___________________________________________________
+<h2>SEXTO módulo</h2>
+<body>
+    <h3>Reconstruir commits en Git con amend</h3>
+    <p>
+        Cuando hago un comit pero olvidé hacer un cambio que iba dentro de ese mismo commit<br>
+        (primero verifico que todo lo que haya hecho, ya está en estado para commitear)
+        <b>git commit --amend</b> puedo agregar algo al mensaje del commit anterior para entender que se ha enmendado correctamente.
+    </p>
+    
+    <h3>Clase 40: git reset y reflog</h3>
+    <p>
+        Qué pasa cuando hago un lío, commiteo y pierdo el estado actual del proyecto avanzado...
+        <h4>git reflog</h4>
+        acá veo el Hash y HEAD{posicion}, y todos los detalles. 
+       
+        [<br>=>  Acá voy a buscar el último commit correcto y copio el head{posicion}. <b>git reset HEAD{posicion}</b> --> es como un reset soft: porque volvimos al head anterior y justo antes del commit]
+        <br> => Acá voy a buscar el último commit correcto y copio el hash <b>git reset --hard hash</b>
+        y en git log, ya no aparece el commit del error, es como si el lío no hubiera pasado. (aunque en git reflog, sí se refleja)
+    </p>
+
+    <h3>Clase 41: grep y log (buscar en archivos y commits)</h3>
+       <p>
+        A medida que el proyecto crece, vamos a querer buscar ciertas cosas (por ejemplo una palabra) a lo largo de todo el repositorio de codigo
+        <h4>git grep palabra</h4>
+        <p>
+        es para los ARCHIVOS. <br>tengo que estar en la rama correcta. Me va a mostrar todos los lugares donde aparece. 
+        <br>
+        <b>-n (palabra)</b> para que me indique en qué lineas se encuentra.
+        <br><b>-c (palabra)</b> para que haga un conteo de la cantidad de veces que se repite. 
+        <br> si quiero buscar una etiqueta tengo que poner encomillado por ejemplo "<p>"
+        </p>
+        <h4>git log -S "palabra"</h4>
+        <p>
+            para los COMMIT <br>
+            cuando quiero buscar algo en la historia del commit.
+        </p>
+        </p>
+
+    
+
+
+</body>
+
+___________________________________________________
+<h2>SEPTIMO módulo</h2>
+<body>
+    ALias dentro de git
+    <h4>git short log</h4>
+    Diseñado para ver cuántos commit hicieron los miembros del equipo
+    <br><b>git shortlog -sn</b>
+    muestra las personas que hicieron ciertos commit
+    <br><b>git shortlog -sn --all</b>: Muestra todos los commit, incluso los borrados.
+    <br><b>git shortlog -sn --all --no-merges</b>: no muestra los merges 
+
+    <h4>git config --global alias-stats "shortlog -sn --all --no-merges"</h4>
+    es una forma de hacer un alias para toda la configuracion global de mi instalación de git. 
+
+    <br><br>
+    <h4>git blame -c archivoAnalizado</h4>
+    si quiero ver quién hizo cada commit. (el -c es para que idente mejor)
+
+    <h4>git comandoX --help</h4>
+    me abre en el navegador el manual del comando consultado
+
+    <h4>git blame archivoAnalizado -l35,53 -c</h4>
+    Me muestra lo mismo que blame, pero con -l estoy analizando lineas en particular (los numeros son el rango de las lineas analizadas)
+    y con -c lo idento
+    
+    <h4>git branch -r</h4>
+    para ver las ramas remotas (del servidor de github)
+
+    <h4>git branch -a</h4>
+    me muestra todas las ramas. En rojo las remoto, en blanco las locales. Puedo compararlas para saber cuáles no están subidas. 
+</body>
+
+<h3>REPASO</h3>
+<body>
+    1) el commit puede ser sin mensaje, pero es una mala práctica. Tenemos que agregar un mensaje de qué es lo qe estas mandando al repositorio. 
+    ASí cuando vas al pasado sabes qué quisiste hacer en ese commit. 
+    <br>2) GitHub es un sitio web con un super servidor de git, donde podemos crear o clonar un repositorio, de tal forma que son varias personas las qeu pueden crear un repositorio. 
+    También es una interfaz visual. Y por ultimo, es una herramienta colaborativa, la más grande en el mundo del desarrollo. 
+    <br>3) Podemos tener ramas que nunca enviemos a gitHub o ramas que siempre estamos enviando. Las ramas (branch)las hacemos siempre desde la versión más reciente del proyecto.
+    <br>4) <b>images/*.js</b>: sería dentro de la carpeta imagenes, todos los nombre archivo .js (javaScript)
+    <br>5) <b>git config --global alias.platzi "shortlog"</b> -> el alias que queda es<b> platzi </b>
+    <br>6) <b>gitk</b> -> viene por defecto en la instalación de git. Todos los desarrolladores profesionales usan consola, porque es más rápido.
+    <br>7) no se 
+    <br>8) opcion incorrecta !
+    <br>9) git grep sirve para buscar palabras en todo el proyecto. 
+    <br>10) main es la rama principal, pero se puede cambiar la rama principal.
+    <br>11) 
 </body>
